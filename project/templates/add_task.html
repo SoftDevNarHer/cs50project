@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        {% if task %}
+            Edit Task
+        {% else %}
+            Add New Task
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ task[1] if task else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description">{{ task[2] if task else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="pending" {% if task and task[3] == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="completed" {% if task and task[3] == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Save Task</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Task List</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
